@@ -1,0 +1,51 @@
+version: '3.7'
+
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - '6379:6379'
+    expose:
+      - '6379'
+  web:
+    build: .
+    command: sh -c "python manage.py migrate && python manage.py setperiodictask && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app/
+    ports:
+      - 80:8000
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=dbaa1_i7%*3r9-=z-+_mz4r-!qeed@(-a_r(g@k8jo8y3r27%m
+      - IS_PRODUCTION=False
+      - FIELD_ENCRYPTION_KEYS=f164ec6bd6fbc4aef5647abc15199da0f9badcc1d2127bde2087ae0d794a9a0b
+    depends_on:
+      - redis
+  celery:
+    build: .
+    command: celery -A FamPayYoutube worker --loglevel=info --pool=solo
+    volumes:
+      - .:/app/
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=dbaa1_i7%*3r9-=z-+_mz4r-!qeed@(-a_r(g@k8jo8y3r27%m
+      - IS_PRODUCTION=False
+      - FIELD_ENCRYPTION_KEYS=f164ec6bd6fbc4aef5647abc15199da0f9badcc1d2127bde2087ae0d794a9a0b
+
+    depends_on:
+      - redis
+      - web
+  celery-beat:
+    build: .
+    command: celery -A FamPayYoutube beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    volumes:
+      - .:/app/
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=dbaa1_i7%*3r9-=z-+_mz4r-!qeed@(-a_r(g@k8jo8y3r27%m
+      - IS_PRODUCTION=False
+      - FIELD_ENCRYPTION_KEYS=f164ec6bd6fbc4aef5647abc15199da0f9badcc1d2127bde2087ae0d794a9a0b
+    depends_on:
+      - redis
+      - web
+      - celery
