@@ -11,9 +11,11 @@ from api.serializers import VideoSerializer, ApiKeySerializer
 
 class VideoViewset(viewsets.ModelViewSet):
     '''
+    Viewset for Video Model, can perform search on title and description using django-filters.
+    Pagination done using PageNumberPagination.
     '''
     http_method_names = ['get']
-    queryset = Video.objects.all().order_by('-published_date')
+    queryset = Video.objects.all().order_by('-published_date') # queryset ordered in reverse order of published data
     serializer_class = VideoSerializer
     pagination_class = PageNumberPagination
     filter_backends = [filters.SearchFilter,  DjangoFilterBackend]
@@ -22,6 +24,7 @@ class VideoViewset(viewsets.ModelViewSet):
 
 class ApiKeyViewset(viewsets.ModelViewSet):
     '''
+    Viewset to add new API keys for youtube API.
     '''
     http_method_names = ['get','post']
     queryset = ApiToken.objects.all()

@@ -14,14 +14,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # Local Apps (project's apps)
+    'api',
 
     # Third-Party Apps
     'rest_framework',
     'django_celery_beat',
     'encrypted_fields',
 
-    # Local Apps (project's apps)
-    'api',
+
 ]
 
 MIDDLEWARE = [
@@ -85,16 +87,16 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 #Redis settings
-REDIS_HOST = 'localhost'
+REDIS_HOST = 'redis'
 REDIS_PORT = 6379
 r = Redis(REDIS_HOST, socket_connect_timeout=1) # short timeout for the test
 r.ping()
 print('connected to redis "{}"'.format(REDIS_HOST))
 
 #Celery Settings
-BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-CELERY_ACCEPT_CONTENT = ['application/json', 'pickle', 'json', 'msgpack', 'yaml']
+BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_ACCEPT_CONTENT = ['application/json', 'json', 'msgpack', 'yaml']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Kolkata'
