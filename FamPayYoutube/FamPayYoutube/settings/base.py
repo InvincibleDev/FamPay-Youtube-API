@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     # Third-Party Apps
     'rest_framework',
     'django_celery_beat',
+    'encrypted_fields',
 
     # Local Apps (project's apps)
     'api',
@@ -105,7 +106,7 @@ CELERY_TASK_TRACK_STARTED = True
 #     },
 # }
 
-
+FIELD_ENCRYPTION_KEYS = [os.environ.get('FIELD_ENCRYPTION_KEYS', ''),]
 
 LANGUAGE_CODE = 'en-us'
 
