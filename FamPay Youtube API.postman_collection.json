@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "e4e2c0bf-c084-469e-832b-c4ec5e4ec9ff",
+		"name": "FamPay Youtube API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Upload API KEY",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\":\"valid api key\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1/apikeys/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"apikeys",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get API key",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1/apikeys/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"apikeys",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Stored Videos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1/youtubevideo/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"youtubevideo",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search stored videos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1/youtubevideo/?search=football",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"path": [
+						"youtubevideo",
+						""
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "football"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
