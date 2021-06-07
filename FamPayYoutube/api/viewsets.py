@@ -13,7 +13,6 @@ class VideoViewset(viewsets.ModelViewSet):
     '''
     '''
     http_method_names = ['get']
-    permission_classes =  (AllowAny,)
     queryset = Video.objects.all().order_by('-published_date')
     serializer_class = VideoSerializer
     pagination_class = PageNumberPagination
@@ -24,8 +23,6 @@ class VideoViewset(viewsets.ModelViewSet):
 class ApiKeyViewset(viewsets.ModelViewSet):
     '''
     '''
-
     http_method_names = ['get','post']
-    permission_classes = (AllowAny)
     queryset = ApiToken.objects.all()
     serializer_class = ApiKeySerializer

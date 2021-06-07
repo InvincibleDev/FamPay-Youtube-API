@@ -31,17 +31,19 @@ def get_youtube_videos():
     while nextPageToken != None:
 
         key_object = ApiToken.objects.filter(is_exhausted = False)
-        if key_object.count() < 0:
-            return "Failed, Add More API Keys"
-        query_params["key"] = key_object[0].token
+        if key_object.count() < 1:
+            current_task.update_state(state='FAILED', meta={'MESSAGE': "ADD MORE API KEYS"})
+            return "FAILED"
+        api_key = key_object[0]
+        query_params["key"] = api_key.token
 
         video_data_list = []
 
         response = requests.get(url = url, params = query_params)
 
         if response.status_code == 403 or response.status_code == 429:
-            key_object.is_exhausted = True
-            key_object.save()
+            api_key.is_exhausted = True
+            api_key.save()
             continue
 
         if response.status_code == 200:
