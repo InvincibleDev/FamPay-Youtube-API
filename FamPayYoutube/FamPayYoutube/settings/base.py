@@ -99,12 +99,6 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Kolkata'
 CELERY_TASK_TRACK_STARTED = True
-# CELERY_BEAT_SCHEDULE = {
-#      'update-weather-data': {
-#        'task': 'api.tasks.update_weather_data',
-#        'schedule': 1800.0,
-#     },
-# }
 
 FIELD_ENCRYPTION_KEYS = [os.environ.get('FIELD_ENCRYPTION_KEYS', ''),]
 
