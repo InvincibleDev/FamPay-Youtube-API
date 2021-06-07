@@ -37,3 +37,4 @@ To upload API KEYS
 
     Upload API KEY after running docker file.
     Every API key is stored in a encrypted field for safety.
+    postman collection added in the repo
